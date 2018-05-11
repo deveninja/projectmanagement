@@ -6,7 +6,9 @@
 
 class Controller extends Core
 {
-    protected $Err;
+    protected $viewErr = '';
+    protected $templateErr = '';
+    
 
     //Load models
     public function model($model)
@@ -19,25 +21,49 @@ class Controller extends Core
     }
 
     // Load views
-    public function view($view, $data = [])
+    public function view($view, $template, $data)
     {
-        // Check for view files that exists in App/Views
-        if(file_exists('../app/views/' . $view . '.php')){
-            require_once '../app/views/' . $view . '.php';
+        
+        $viewMessage = '.php - Does not exist in App/Views/Pages folder';
+        $templateMessage = '.php - Does not exist in App/Views/Templates folder';
+        $errorPage = '../app/views/error.php';
+        $templatesDIR = '../app/views/templates/';
+        $viewsDIR = '../app/views/';
+        $functionsDIR = '../app/views/inc/functions.php';
+        
+        
+        // Checks and load the view & template files that exist in App/views folder
+        if (!file_exists($templatesDIR . $template . '.php') && !file_exists($viewsDIR . $view . '.php')){
+            $templateErr = $template;
+            $viewErr = $view;
+            $this->viewErr = $view . $viewMessage;
+            $this->templateErr = $template . $templateMessage;
+            
+            require_once $errorPage;    
+
         } else {
+            require_once $functionsDIR;
             
+            if (!file_exists($templatesDIR . $template . '.php')){
+                $templateErr = $template;
+                $this->templateErr = $template . $templateMessage;
+                require_once $errorPage;
+            } else {
+                require_once $templatesDIR . $template . '.php';
+            }
+
+            if (!file_exists($viewsDIR . $view . '.php')){
+                $viewErr = $view;
+                $this->viewErr = $view . $viewMessage;
+                require_once $errorPage;
+            } else {
+                require_once $viewsDIR . $view . '.php';
+            }
             
-            
-            require_once '../app/views/error.php';
-            $Err = function() {
-                echo 'Error Message';
-            };
-        }
+        }   
     }
 
-    public function Err() {
-        // Set the default error message
-        $Err = 'You have set your view to ' . $this->view($view) . ' which does not exist in App/Views folder'; 
-        $this->Err = $Err;
-    }
+  
+
+    
 }
