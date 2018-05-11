@@ -21,7 +21,7 @@ class Controller extends Core
     }
 
     // Load views
-    public function view($view, $template, $data)
+    public function view($view, $template, $data = [])
     {
         
         $viewMessage = '.php - Does not exist in App/Views/Pages folder';
@@ -42,8 +42,10 @@ class Controller extends Core
             require_once $errorPage;    
 
         } else {
+            // Load the functions in App/Views/inc/functions.php
             require_once $functionsDIR;
             
+            // Checks if the template file is available in App/Views/Templates
             if (!file_exists($templatesDIR . $template . '.php')){
                 $templateErr = $template;
                 $this->templateErr = $template . $templateMessage;
@@ -52,6 +54,8 @@ class Controller extends Core
                 require_once $templatesDIR . $template . '.php';
             }
 
+            
+            // Checks if the template file is available in App/Views/Pages
             if (!file_exists($viewsDIR . $view . '.php')){
                 $viewErr = $view;
                 $this->viewErr = $view . $viewMessage;

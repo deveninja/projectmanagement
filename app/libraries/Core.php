@@ -19,7 +19,7 @@ class Core
         // print_r($this->getUrl());   -> Testing the getUrl function
         
         $this->urlFormat();
-       
+        
         
     }
 

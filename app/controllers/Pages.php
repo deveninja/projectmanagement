@@ -1,17 +1,22 @@
-<?php
+<?
+
+/*
+    ► Load view format = VIEW, TEMPLATE, DATA = [array]
+*/
 
 class Pages extends Controller
 {
     public function __construct()
     {
-    //   $this->pageTemplateFunction('page1');
+    
     }
 
 
     public function index()
     {
         $data = array (
-            'title' => 'Home Page'
+            'title' => 'Home Page',
+            'footer' => 'Footer notes here'
         );
         $this->view('pages/index', 'page', $data);
     }
@@ -20,8 +25,8 @@ class Pages extends Controller
     public function about()
     {   
         $data = array (
-            'title' => 'About Page Nasad'
-            
+            'title' => 'About Page Nasad',
+            'footer' => 'Footer notes here'
         );
         
         $this->view('pages/about', 'page', $data);
