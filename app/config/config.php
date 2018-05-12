@@ -6,4 +6,4 @@
     ► Site url
 */
 
-// DEFINE('APPROOT', dirname(dirname(__FILE__)));
+DEFINE('APPROOT', dirname(dirname(__FILE__)));

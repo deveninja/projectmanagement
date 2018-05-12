@@ -8,5 +8,3 @@ getHeader($data);
 
 
 
-
-?>

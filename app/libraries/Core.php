@@ -1,8 +1,8 @@
 <?php
 /*
-    ► App Core Class
-    ► Creates URL & Loads core controller
-    ► URL FORMAT - /controller/method/params
+    App Core Class
+    Creates URL & Loads core controller
+    URL FORMAT - /controller/method/params
 */
 
 class Core 
@@ -16,9 +16,10 @@ class Core
 
     public function __construct()
     {
-        // print_r($this->getUrl());   -> Testing the getUrl function
+        // -> Testing the getUrl function
+        // print_r($this->getUrl());   
         
-        $this->urlFormat();
+        $this->SetParams();
         
         
     }
@@ -35,7 +36,7 @@ class Core
         }
     }
 
-    public function urlFormat()
+    public function SetParams()
     {
         $url = $this->getUrl();
 
@@ -46,6 +47,8 @@ class Core
 
             // unset 0 Index
             unset($url[0]);
+
+            
         }
 
         // Require the controller
@@ -65,7 +68,13 @@ class Core
         // Get Params
         $this->params = $url ? array_values($url) : [];
         // Call a call back with array of params
-        call_user_func_array([$this->currentController, $this->currentMethod], $this->params);
+        call_user_func_array(
+            [
+                $this->currentController, 
+                $this->currentMethod
+            ],  
+                $this->params
+        );
 
     }
 
